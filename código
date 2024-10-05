@@ -1,0 +1,63 @@
+#banco
+menu = """
+.................................................
+
+        Banco Da Praça
+            MENU
+
+{d} Digite d para realizar um depósito
+
+{s} Digite s para realizar um saque
+
+{e} Digite e para ver seu extrato
+
+{a} Digite a para sair
+
+.................................................
+"""
+saldo = 0
+limite_de_money = 500
+extrato = ""
+numero_d_saques = 0
+LIMITE_DE_SAQUES = 3
+
+while 0 == 0:
+    menu_exibir = input(menu)
+    
+    if menu_exibir == "d":
+        valor = float(input("Quanto você deseja depositar hoje? "))
+        
+        if valor > 0:
+            saldo += valor
+            extrato += f"Depósito: R$ {valor:.2f}\n" #essa aqui tive que usar igual a do código padrão
+        else:
+            print("Operação falhou! O valor informado é inválido.")
+
+    elif menu_exibir == "e":
+        print("Não foram realizadas movimentações." if not extrato else extrato)
+        print(f"\nSaldo: R$ {saldo:.2f}")
+
+
+    elif menu_exibir == "q":
+        break
+
+    elif menu_exibir == "s":
+        valor = float(input("Quanto você desejaria sacar?\n "))
+
+        cabo_saldo = valor > saldo
+        cabo_limite = valor > LIMITE_DE_SAQUES
+        excedeu_saques = numero_d_saques >= LIMITE_DE_SAQUES
+
+        if cabo_saldo:
+            print("Não foi possível realizar. Saldo insuficiente.")
+        elif cabo_limite:
+            print("Não foi possível realizar. Ultrapassa o limite de saque.")
+        elif excedeu_saques:
+            print("Não foi possível realizar. Limite de saques atingido.")
+        elif valor > 0:
+            saldo -= valor
+            extrato += f"Saque: R$ {valor:.2f}\n"
+            numero_d_saques += 1
+
+        else:
+            print("Por favor digite algum dos valores informados.")
